@@ -69,25 +69,22 @@ public class Game extends Application {
 
         VBox flag = new VBox();
         flag.setPadding(new Insets(20, 10, 20, 10));
-//        Label flag1 = new Label("⚑" + 3);
-//        Label flag2 = new Label("⚑⚑" + 2);
-//        Label flag3 = new Label("⚑⚑⚑" + 2);
         Label flag1 = new Label("7");
-        Image img1 = new Image("images/flag1.png");
+        Image img1 = new Image("file:images/flag1.png");
         ImageView view1 = new ImageView(img1);
         view1.setFitHeight(20);
         view1.setFitWidth(20);
         flag1.setGraphic(view1);
 
         Label flag2 = new Label("5");
-        Image img2 = new Image("images/flag2.png");
+        Image img2 = new Image("file:images/flag2.png");
         ImageView view2 = new ImageView(img2);
         view2.setFitHeight(20);
         view2.setFitWidth(20);
         flag2.setGraphic(view2);
 
         Label flag3 = new Label("2");
-        Image img3 = new Image("images/flag3.png");
+        Image img3 = new Image("file:images/flag3.png");
         ImageView view3 = new ImageView(img3);
         view3.setFitHeight(20);
         view3.setFitWidth(20);
