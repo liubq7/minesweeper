@@ -1,6 +1,7 @@
 import javafx.scene.layout.GridPane;
+import java.util.ArrayList;
 
-public class GameBoard {
+public class GameBoard extends GridPane {
     private int row;  // 行y(j)
     private int col;  // 列x(i)
     private int oneBombNum;
@@ -14,7 +15,7 @@ public class GameBoard {
         oneBombNum = obn;
         twoBombNum = tbn;
         threeBombNum = thbn;
-        map = generateMap(c, r, obn);
+        map = generateMap(c, r, obn, tbn, thbn);
     }
 
     private class Cell {
@@ -26,7 +27,7 @@ public class GameBoard {
         }
     }
 
-    private Cell[][] generateMap(int col, int row, int obn) {
+    private Cell[][] generateMap(int col, int row, int obn, int tbn, int thbn) {
         Cell[][] map = new Cell[col][row];
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
@@ -34,12 +35,33 @@ public class GameBoard {
             }
         }
 
-        // TODO: 雷数有问题
-        for (int n = 0; n < obn; n++) {
+        ArrayList<Cell> oneBomb = new ArrayList<>();
+        while (oneBomb.size() < obn){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
             if (map[i][j].bombNum == 0) {
                 map[i][j].bombNum = 1;
+                oneBomb.add(map[i][j]);
+            }
+        }
+
+        ArrayList<Cell> twoBomb = new ArrayList<>();
+        while (twoBomb.size() < tbn){
+            int i = (int) (Math.random() * (col));
+            int j = (int) (Math.random() * (row));
+            if (map[i][j].bombNum == 0) {
+                map[i][j].bombNum = 2;
+                twoBomb.add(map[i][j]);
+            }
+        }
+
+        ArrayList<Cell> threeBomb = new ArrayList<>();
+        while (threeBomb.size() < thbn){
+            int i = (int) (Math.random() * (col));
+            int j = (int) (Math.random() * (row));
+            if (map[i][j].bombNum == 0) {
+                map[i][j].bombNum = 3;
+                threeBomb.add(map[i][j]);
             }
         }
 
@@ -47,8 +69,10 @@ public class GameBoard {
 
         return map;
     }
-    /* 计算周围的雷数（待化简） */
-    private void countBomb(Cell[][] map) {
+    /* 计算周围的雷数 */
+    private static void countBomb(Cell[][] map) {
+        int col = map.length;
+        int row = map[0].length;
         // 里面一圈
         for (int i = 1; i < col - 1; i++) {
             for (int j = 1; j < row - 1; j++) {
@@ -82,17 +106,22 @@ public class GameBoard {
 
     public static void main(String arg[]) {
         System.out.println("start");
-        GameBoard gb = new GameBoard(5, 5, 5, 0, 0);
+        int col = 15;
+        int row = 12;
+        int obn = 7;
+        int tbn = 5;
+        int thbn = 3;
+        GameBoard gb = new GameBoard(col, row, obn, tbn, thbn);
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
                 System.out.print(gb.map[i][j].bombNum);
             }
             System.out.println();
         }
         System.out.println();
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
                 System.out.print(gb.map[i][j].aroundBombNum);
             }
             System.out.println();
