@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
 
+    public static void main(String[] args){
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         HBox root = new HBox();
@@ -33,28 +37,8 @@ public class Game extends Application {
     }
 
     private void initGUI(Pane root) {
-        GridPane gameBoard = new GridPane();
-        gameBoard.setPadding(new Insets(10,10,10,10));
-        gameBoard.setHgap(0);
-        gameBoard.setVgap(0);
-        for (int i = 0; i < 19; i++) {
-            for (int j = 0; j < 15; j++) {
-                Button btn = new Button(" ");
-                btn.setMinWidth(25);
-                btn.setOnMouseClicked(e ->{
-                    if (e.getButton() == MouseButton.SECONDARY) {
-                        if (btn.getText().equals(" ")) {
-                            btn.setText("⚑");
-                        } else if (btn.getText().equals("⚑")) {
-                            btn.setText(" ");
-                        }
-                    } else if (e.getButton() == MouseButton.PRIMARY) {
-                        btn.setStyle("-fx-background-color: #676d6c");
-                    }
-                });
-                gameBoard.add(btn, i, j);
-            }
-        }
+        GameBoard gameBoard = new GameBoard(19, 15, 10, 0, 0);
+        gameBoard.boardUI();
 
         Button buttonRestart = new Button("\uD83D\uDE03");
         Label time = new Label("TIME");

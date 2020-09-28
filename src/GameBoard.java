@@ -1,21 +1,48 @@
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
 public class GameBoard extends GridPane {
-    private int row;  // 行y(j)
     private int col;  // 列x(i)
+    private int row;  // 行y(j)
     private int oneBombNum;
     private int twoBombNum;
     private int threeBombNum;
     private Cell[][] map;
 
-    private GameBoard(int c, int r, int obn, int tbn, int thbn) {
+    public GameBoard(int c, int r, int obn, int tbn, int thbn) {
         row = r;
         col = c;
         oneBombNum = obn;
         twoBombNum = tbn;
         threeBombNum = thbn;
-        map = generateMap(c, r, obn, tbn, thbn);
+        map = generateMap();
+    }
+
+    public void boardUI() {
+        this.setPadding(new Insets(10,10,10,10));
+        this.setHgap(0);
+        this.setVgap(0);
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
+                Button btn = new Button(" ");
+                btn.setMinWidth(25);
+                btn.setOnMouseClicked(e ->{
+                    if (e.getButton() == MouseButton.SECONDARY) {
+                        if (btn.getText().equals(" ")) {
+                            btn.setText("⚑");
+                        } else if (btn.getText().equals("⚑")) {
+                            btn.setText(" ");
+                        }
+                    } else if (e.getButton() == MouseButton.PRIMARY) {
+                        btn.setStyle("-fx-background-color: #676d6c");
+                    }
+                });
+                this.add(btn, i, j);
+            }
+        }
     }
 
     private class Cell {
@@ -27,7 +54,7 @@ public class GameBoard extends GridPane {
         }
     }
 
-    private Cell[][] generateMap(int col, int row, int obn, int tbn, int thbn) {
+    private Cell[][] generateMap() {
         Cell[][] map = new Cell[col][row];
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
@@ -36,7 +63,7 @@ public class GameBoard extends GridPane {
         }
 
         ArrayList<Cell> oneBomb = new ArrayList<>();
-        while (oneBomb.size() < obn){
+        while (oneBomb.size() < oneBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
             if (map[i][j].bombNum == 0) {
@@ -46,7 +73,7 @@ public class GameBoard extends GridPane {
         }
 
         ArrayList<Cell> twoBomb = new ArrayList<>();
-        while (twoBomb.size() < tbn){
+        while (twoBomb.size() < twoBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
             if (map[i][j].bombNum == 0) {
@@ -56,7 +83,7 @@ public class GameBoard extends GridPane {
         }
 
         ArrayList<Cell> threeBomb = new ArrayList<>();
-        while (threeBomb.size() < thbn){
+        while (threeBomb.size() < threeBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
             if (map[i][j].bombNum == 0) {
