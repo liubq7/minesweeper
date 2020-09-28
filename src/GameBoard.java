@@ -27,7 +27,8 @@ public class GameBoard extends GridPane {
         this.setVgap(0);
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
-                Button btn = new Button(" ");
+                GameButton btn = new GameButton(" ");
+                btn.buttonCell = map[i][j];
                 btn.setMinWidth(25);
                 btn.setOnMouseClicked(e ->{
                     if (e.getButton() == MouseButton.SECONDARY) {
@@ -37,11 +38,24 @@ public class GameBoard extends GridPane {
                             btn.setText(" ");
                         }
                     } else if (e.getButton() == MouseButton.PRIMARY) {
-                        btn.setStyle("-fx-background-color: #676d6c");
+                        if (btn.buttonCell.bombNum == 0) {
+                            btn.setStyle("-fx-background-color: #676d6c");
+                            btn.setText(Integer.toString(btn.buttonCell.aroundBombNum));
+                        } else if (btn.buttonCell.bombNum != 0) {
+                            btn.setStyle("-fx-background-color: #d41736");
+                        }
                     }
                 });
                 this.add(btn, i, j);
             }
+        }
+    }
+
+    private class GameButton extends Button {
+        private Cell buttonCell;
+
+        private GameButton(String s) {
+            this.setText(s);
         }
     }
 
