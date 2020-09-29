@@ -53,6 +53,7 @@ public class Game extends Application {
 
         VBox flag = new VBox();
         flag.setPadding(new Insets(20, 10, 20, 10));
+        // TODO: 写成for循环
         Label flag1 = new Label("7");
         Image img1 = new Image("file:images/flag1.png");
         ImageView view1 = new ImageView(img1);

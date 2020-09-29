@@ -10,7 +10,7 @@ public class GameBoard extends GridPane {
     private int oneBombNum;
     private int twoBombNum;
     private int threeBombNum;
-    private Cell[][] map;
+    private GameButton[][] map;
 
     public GameBoard(int c, int r, int obn, int tbn, int thbn) {
         row = r;
@@ -27,56 +27,53 @@ public class GameBoard extends GridPane {
         this.setVgap(0);
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
-                GameButton btn = new GameButton(" ");
-                btn.buttonCell = map[i][j];
-                btn.setMinWidth(25);
-                btn.setOnMouseClicked(e ->{
-                    if (e.getButton() == MouseButton.SECONDARY) {
-                        if (btn.getText().equals(" ")) {
-                            btn.setText("⚑");
-                        } else if (btn.getText().equals("⚑")) {
-                            btn.setText(" ");
-                        }
-                    } else if (e.getButton() == MouseButton.PRIMARY) {
-                        if (btn.buttonCell.bombNum == 0) {
-                            btn.setStyle("-fx-background-color: #676d6c");
-                            btn.setText(Integer.toString(btn.buttonCell.aroundBombNum));
-                        } else if (btn.buttonCell.bombNum != 0) {
-                            btn.setStyle("-fx-background-color: #d41736");
-                        }
-                    }
-                });
-                this.add(btn, i, j);
+
+//                map[i][j].setOnMouseClicked(e ->{
+//                    if (e.getButton() == MouseButton.SECONDARY) {
+//                        if (map[i][j].getText().equals(" ")) {
+//                            map[i][j].setText("⚑");
+//                        } else if (map[i][j].getText().equals("⚑")) {
+//                            map[i][j].setText(" ");
+//                        }
+//                    } else if (e.getButton() == MouseButton.PRIMARY) {
+//                        if (map[i][j].buttonCell.bombNum == 0) {
+//                            map[i][j].setStyle("-fx-background-color: #676d6c");
+//                            map[i][j].setText(Integer.toString(map[i][j].buttonCell.aroundBombNum));
+//                        } else if (map[i][j].buttonCell.bombNum != 0) {
+//                            map[i][j].setStyle("-fx-background-color: #d41736");
+//                        }
+//                    }
+//                });
+                this.add(map[i][j], i, j);
             }
         }
     }
 
     private class GameButton extends Button {
-        private Cell buttonCell;
+        private int bombNum;
+        private int aroundBombNum;
+        private Position pos;
 
         private GameButton(String s) {
             this.setText(s);
-        }
-    }
-
-    private class Cell {
-        private int bombNum;
-        private int aroundBombNum;
-
-        private Cell() {
             bombNum = 0;
         }
     }
 
-    private Cell[][] generateMap() {
-        Cell[][] map = new Cell[col][row];
+
+    private GameButton[][] generateMap() {
+        GameButton[][] map = new GameButton[col][row];
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
-                map[i][j] = new Cell();
+                map[i][j] = new GameButton(" ");
+                map[i][j].setMinWidth(25);
+                map[i][j].pos.x = i;
+                map[i][j].pos.y = j;
             }
         }
 
-        ArrayList<Cell> oneBomb = new ArrayList<>();
+        // TODO: 化简写法
+        ArrayList<GameButton> oneBomb = new ArrayList<>();
         while (oneBomb.size() < oneBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
@@ -86,7 +83,7 @@ public class GameBoard extends GridPane {
             }
         }
 
-        ArrayList<Cell> twoBomb = new ArrayList<>();
+        ArrayList<GameButton> twoBomb = new ArrayList<>();
         while (twoBomb.size() < twoBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
@@ -96,7 +93,7 @@ public class GameBoard extends GridPane {
             }
         }
 
-        ArrayList<Cell> threeBomb = new ArrayList<>();
+        ArrayList<GameButton> threeBomb = new ArrayList<>();
         while (threeBomb.size() < threeBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
@@ -111,7 +108,7 @@ public class GameBoard extends GridPane {
         return map;
     }
     /* 计算周围的雷数 */
-    private static void countBomb(Cell[][] map) {
+    private static void countBomb(GameButton[][] map) {
         int col = map.length;
         int row = map[0].length;
         // 里面一圈
@@ -146,7 +143,6 @@ public class GameBoard extends GridPane {
 
 
     public static void main(String arg[]) {
-        System.out.println("start");
         int col = 15;
         int row = 12;
         int obn = 7;
