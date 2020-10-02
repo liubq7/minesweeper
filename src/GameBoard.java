@@ -1,6 +1,8 @@
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
@@ -12,6 +14,8 @@ public class GameBoard extends GridPane {
     private int threeBombNum;
     private GameButton[][] map;
 
+    public EventHandler<MouseEvent> gameButtonListener;
+
     public GameBoard(int c, int r, int obn, int tbn, int thbn) {
         row = r;
         col = c;
@@ -19,6 +23,27 @@ public class GameBoard extends GridPane {
         twoBombNum = tbn;
         threeBombNum = thbn;
         map = generateMap();
+
+        gameButtonListener = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                GameBoard.GameButton btn = (GameBoard.GameButton)e.getSource();
+                if (e.getButton() == MouseButton.SECONDARY) {
+                    if (btn.getText().equals(" ")) {
+                        btn.setText("⚑");
+                    } else if (btn.getText().equals("⚑")) {
+                        btn.setText(" ");
+                    }
+                } else if (e.getButton() == MouseButton.PRIMARY) {
+                    if (btn.bombNum == 0) {
+                        btn.setStyle("-fx-background-color: #676d6c");
+                        btn.setText(Integer.toString(btn.aroundBombNum));
+                    } else if (btn.bombNum != 0) {
+                        btn.setStyle("-fx-background-color: #d41736");
+                    }
+                }
+            }
+        };
     }
 
     public void boardUI() {
@@ -27,31 +52,15 @@ public class GameBoard extends GridPane {
         this.setVgap(0);
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
-
-//                map[i][j].setOnMouseClicked(e ->{
-//                    if (e.getButton() == MouseButton.SECONDARY) {
-//                        if (map[i][j].getText().equals(" ")) {
-//                            map[i][j].setText("⚑");
-//                        } else if (map[i][j].getText().equals("⚑")) {
-//                            map[i][j].setText(" ");
-//                        }
-//                    } else if (e.getButton() == MouseButton.PRIMARY) {
-//                        if (map[i][j].buttonCell.bombNum == 0) {
-//                            map[i][j].setStyle("-fx-background-color: #676d6c");
-//                            map[i][j].setText(Integer.toString(map[i][j].buttonCell.aroundBombNum));
-//                        } else if (map[i][j].buttonCell.bombNum != 0) {
-//                            map[i][j].setStyle("-fx-background-color: #d41736");
-//                        }
-//                    }
-//                });
+                map[i][j].setOnMouseClicked(gameButtonListener);
                 this.add(map[i][j], i, j);
             }
         }
     }
 
-    private class GameButton extends Button {
-        private int bombNum;
-        private int aroundBombNum;
+    public class GameButton extends Button {
+        public int bombNum;
+        public int aroundBombNum;
         private Position pos;
 
         private GameButton(String s) {
@@ -60,6 +69,9 @@ public class GameBoard extends GridPane {
         }
     }
 
+    private GameButton getButton(int x, int y) {
+        return map[x][y];
+    }
 
     private GameButton[][] generateMap() {
         GameButton[][] map = new GameButton[col][row];
@@ -67,8 +79,8 @@ public class GameBoard extends GridPane {
             for (int j = 0; j < row; j++) {
                 map[i][j] = new GameButton(" ");
                 map[i][j].setMinWidth(25);
-                map[i][j].pos.x = i;
-                map[i][j].pos.y = j;
+//                map[i][j].pos.x = i;
+//                map[i][j].pos.y = j;
             }
         }
 
