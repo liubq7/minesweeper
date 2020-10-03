@@ -105,6 +105,21 @@ public class GameButton extends Button {
                 }
             }
         }
+    }
 
+    public void open() {
+        setStyle("-fx-background-color: #676d6c");
+        setText(Integer.toString(getAroundBombNum()));
+    }
+    public void openAround(GameButton[][] map) {
+        open();
+        ArrayList<GameButton> neighborList = getNeighbor(map);
+        for (GameButton neighborButton : neighborList) {
+            if (neighborButton.aroundBombNum != 0) {
+                neighborButton.open();
+            } else {
+                neighborButton.openAround(map);
+            }
+        }
     }
 }

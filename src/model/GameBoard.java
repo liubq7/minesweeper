@@ -11,7 +11,6 @@ public class GameBoard extends GridPane {
     private int twoBombNum;
     private int threeBombNum;
     private GameButton[][] map;
-    private Controller controller;
 
 
     public GameBoard(int c, int r, int obn, int tbn, int thbn) {
@@ -22,14 +21,15 @@ public class GameBoard extends GridPane {
         threeBombNum = thbn;
         map = GameButton.generateMap(c, r, obn, tbn, thbn);
         GameButton.countBomb(map);
-        controller = new Controller();
+
     }
 
     public void boardUI() {
         this.setPadding(new Insets(10,10,10,10));
         this.setHgap(0);
         this.setVgap(0);
-        controller.initListener();
+        Controller controller = new Controller();
+        controller.initListener(map);
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
                 map[i][j].setOnMouseClicked(controller.gameButtonListener);

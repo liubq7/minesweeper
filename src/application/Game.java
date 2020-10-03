@@ -18,7 +18,7 @@ public class Game extends HBox {
     }
 
     private void initUI() {
-        GameBoard gameBoard = new GameBoard(19, 15, 10, 0, 0);
+        GameBoard gameBoard = new GameBoard(19, 15, 50, 0, 0);
         gameBoard.boardUI();
 
         Button restart = new Button("\uD83D\uDE03");
