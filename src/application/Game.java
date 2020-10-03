@@ -1,54 +1,28 @@
-import javafx.application.Application;
+package application;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import model.GameBoard;
 
-public class Game extends Application {
+public class Game extends HBox {
 
-    public static void main(String[] args){
-        launch(args);
+    public Game() {
+        initUI();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        HBox root = new HBox();
-        initGUI(root);
-
-        Scene scene = new Scene(root);
-
-        stage.setHeight(405);
-        stage.setMaxHeight(405);
-        stage.setMinHeight(405);
-
-        stage.setWidth(620);
-        stage.setMaxWidth(620);
-        stage.setMinWidth(620);
-
-        stage.setTitle("Minesweeper");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    private void initGUI(Pane root) {
+    private void initUI() {
         GameBoard gameBoard = new GameBoard(19, 15, 10, 0, 0);
         gameBoard.boardUI();
 
-        Button buttonRestart = new Button("\uD83D\uDE03");
-        Label time = new Label("TIME");
-        time.setPadding(new Insets(5, 0, 5, 0));
-        VBox topInfo = new VBox();
-        topInfo.setAlignment(Pos.CENTER);
-        topInfo.getChildren().addAll(buttonRestart, time);
-
-
-        Button menu = new Button("MENU");
+        Button restart = new Button("\uD83D\uDE03");
+        Button level = new Button("LEVEL");
 
 
         VBox flag = new VBox();
@@ -81,10 +55,11 @@ public class Game extends Application {
 
         BorderPane info = new BorderPane();
         info.setPadding(new Insets(10, 10, 10, 10));
-        info.setTop(topInfo);
+        info.setTop(restart);
         info.setCenter(flag);
-        info.setBottom(menu);
+        info.setBottom(level);
+        info.setAlignment(restart, Pos.CENTER);
 
-        root.getChildren().addAll(info, gameBoard);
+        this.getChildren().addAll(info, gameBoard);
     }
 }

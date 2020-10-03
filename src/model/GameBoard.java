@@ -1,3 +1,5 @@
+package model;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -14,6 +16,10 @@ public class GameBoard extends GridPane {
     private int threeBombNum;
     private GameButton[][] map;
 
+    private int oneLeft;
+    private int twoLeft;
+    private int threeLeft;
+
     public EventHandler<MouseEvent> gameButtonListener;
 
     public GameBoard(int c, int r, int obn, int tbn, int thbn) {
@@ -23,6 +29,10 @@ public class GameBoard extends GridPane {
         twoBombNum = tbn;
         threeBombNum = thbn;
         map = generateMap();
+
+        oneLeft = obn;
+        twoLeft = tbn;
+        threeLeft = thbn;
 
         gameButtonListener = new EventHandler<MouseEvent>() {
             @Override
