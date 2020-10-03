@@ -7,8 +7,8 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public class GameButton extends Button {
-    public int bombNum;
-    public int aroundBombNum;
+    private int bombNum;
+    private int aroundBombNum;
     private int x;
     private int y;
     private String img;
@@ -17,15 +17,31 @@ public class GameButton extends Button {
         super(s);
         x = i;
         y = j;
+        img = s;
     }
 
-    private void setImg(String path) {
+    public int getBombNum() {
+        return bombNum;
+    }
+    public int getAroundBombNum() {
+        return aroundBombNum;
+    }
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String path) {
+        this.setText("");
         Image image = new Image(path);
         ImageView view = new ImageView(image);
-        view.setFitWidth(10);
-        view.setFitHeight(10);
+        view.setFitWidth(13);
+        view.setFitHeight(13);
         this.setGraphic(view);
         img = path;
+    }
+    public void removeImg() {
+        this.setGraphic(null);
+        img = " ";
     }
 
     public static GameButton[][] generateMap(int col, int row, int obn, int tbn, int thbn) {
@@ -34,6 +50,7 @@ public class GameButton extends Button {
             for (int j = 0; j < row; j++) {
                 map[i][j] = new GameButton(" ", i, j);
                 map[i][j].setMinWidth(25);
+                map[i][j].setMaxWidth(25);
             }
         }
 

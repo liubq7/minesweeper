@@ -39,30 +39,4 @@ public class GameBoard extends GridPane {
     }
 
 
-
-
-
-    public static void main(String arg[]) {
-        int col = 15;
-        int row = 12;
-        int obn = 7;
-        int tbn = 5;
-        int thbn = 3;
-        GameBoard gb = new GameBoard(col, row, obn, tbn, thbn);
-
-        for (int i = 0; i < col; i++) {
-            for (int j = 0; j < row; j++) {
-                System.out.print(gb.map[i][j].bombNum);
-            }
-            System.out.println();
-        }
-        System.out.println();
-        for (int i = 0; i < col; i++) {
-            for (int j = 0; j < row; j++) {
-                System.out.print(gb.map[i][j].aroundBombNum);
-            }
-            System.out.println();
-        }
-    }
-
 }

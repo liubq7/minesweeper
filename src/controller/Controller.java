@@ -14,16 +14,25 @@ public class Controller {
             public void handle(MouseEvent e) {
                 GameButton btn = (GameButton)e.getSource();
                 if (e.getButton() == MouseButton.SECONDARY) {
-                    if (btn.getText().equals(" ")) {
-                        btn.setText("⚑");
-                    } else if (btn.getText().equals("⚑")) {
-                        btn.setText(" ");
+                    switch (btn.getImg()) {
+                        case " " :
+                            btn.setImg("file:images/flag1.png");
+                            break;
+                        case "file:images/flag1.png" :
+                            btn.setImg("file:images/flag2.png");
+                            break;
+                        case "file:images/flag2.png" :
+                            btn.setImg("file:images/flag3.png");
+                            break;
+                        case "file:images/flag3.png" :
+                            btn.removeImg();
+                            break;
                     }
                 } else if (e.getButton() == MouseButton.PRIMARY) {
-                    if (btn.bombNum == 0) {
+                    if (btn.getBombNum() == 0) {
                         btn.setStyle("-fx-background-color: #676d6c");
-                        btn.setText(Integer.toString(btn.aroundBombNum));
-                    } else if (btn.bombNum != 0) {
+                        btn.setText(Integer.toString(btn.getAroundBombNum()));
+                    } else if (btn.getBombNum() != 0) {
                         btn.setStyle("-fx-background-color: #d41736");
                     }
                 }
