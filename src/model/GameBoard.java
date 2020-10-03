@@ -1,12 +1,8 @@
 package model;
 
-import javafx.event.EventHandler;
+import controller.Controller;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import java.util.ArrayList;
 
 public class GameBoard extends GridPane {
     private int col;  // 列x(i)
@@ -15,8 +11,8 @@ public class GameBoard extends GridPane {
     private int twoBombNum;
     private int threeBombNum;
     private GameButton[][] map;
+    private Controller controller;
 
-    public EventHandler<MouseEvent> gameButtonListener;
 
     public GameBoard(int c, int r, int obn, int tbn, int thbn) {
         row = r;
@@ -26,37 +22,17 @@ public class GameBoard extends GridPane {
         threeBombNum = thbn;
         map = GameButton.generateMap(c, r, obn, tbn, thbn);
         GameButton.countBomb(map);
-
-
-        gameButtonListener = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                GameButton btn = (GameButton)e.getSource();
-                if (e.getButton() == MouseButton.SECONDARY) {
-                    if (btn.getText().equals(" ")) {
-                        btn.setText("⚑");
-                    } else if (btn.getText().equals("⚑")) {
-                        btn.setText(" ");
-                    }
-                } else if (e.getButton() == MouseButton.PRIMARY) {
-                    if (btn.bombNum == 0) {
-                        btn.setStyle("-fx-background-color: #676d6c");
-                        btn.setText(Integer.toString(btn.aroundBombNum));
-                    } else if (btn.bombNum != 0) {
-                        btn.setStyle("-fx-background-color: #d41736");
-                    }
-                }
-            }
-        };
+        controller = new Controller();
     }
 
     public void boardUI() {
         this.setPadding(new Insets(10,10,10,10));
         this.setHgap(0);
         this.setVgap(0);
+        controller.initListener();
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
-                map[i][j].setOnMouseClicked(gameButtonListener);
+                map[i][j].setOnMouseClicked(controller.gameButtonListener);
                 this.add(map[i][j], i, j);
             }
         }

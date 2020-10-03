@@ -7,8 +7,8 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public class GameButton extends Button {
-    int bombNum;
-    int aroundBombNum;
+    public int bombNum;
+    public int aroundBombNum;
     private int x;
     private int y;
     private String img;
