@@ -1,20 +1,21 @@
 package controller;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import model.GameBoard;
 import model.GameButton;
+import model.GameModel;
 
 public class Controller {
     public EventHandler<MouseEvent> gameButtonListener;
 
-    public void initListener(GameButton[][] map) {
+    public void initListener(GameModel model) {
         gameButtonListener = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 GameButton btn = (GameButton)e.getSource();
+                int x = btn.getX();
+                int y = btn.getY();
                 if (e.getButton() == MouseButton.SECONDARY) {
                     switch (btn.getImg()) {
                         case " " :
@@ -32,12 +33,7 @@ public class Controller {
                     }
                 } else if (e.getButton() == MouseButton.PRIMARY) {
                     if (btn.getBombNum() == 0) {
-                        if (btn.getAroundBombNum() == 0) {
-                            btn.openAround(map);
-                        } else {
-                            btn.open();
-                        }
-
+                        model.openAround(x, y);
                     } else if (btn.getBombNum() != 0) {
                         btn.setStyle("-fx-background-color: #d41736");
                     }

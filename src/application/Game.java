@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import model.GameBoard;
+import model.GameModel;
 
 public class Game extends HBox {
 
@@ -18,8 +18,8 @@ public class Game extends HBox {
     }
 
     private void initUI() {
-        GameBoard gameBoard = new GameBoard(19, 15, 50, 0, 0);
-        gameBoard.boardUI();
+        GameModel gameModel = new GameModel(19, 15, 10, 5, 2);
+        gameModel.boardUI();
 
         Button restart = new Button("\uD83D\uDE03");
         Button level = new Button("LEVEL");
@@ -47,6 +47,6 @@ public class Game extends HBox {
         info.setBottom(level);
         info.setAlignment(restart, Pos.CENTER);
 
-        this.getChildren().addAll(info, gameBoard);
+        this.getChildren().addAll(info, gameModel);
     }
 }
