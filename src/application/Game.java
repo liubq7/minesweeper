@@ -14,16 +14,31 @@ import model.GameModel;
 
 public class Game extends HBox {
     private Controller controller;
+    public GameModel gameModel;
+    public Button restart;
 
     public Game() {
         controller = new Controller();
         initUI();
     }
 
-    private void initUI() {
-        GameModel gameModel = new GameModel(19, 15, 10, 5, 2);
+    private void setRestart() {
+        restart = new Button();
+        Image img = new Image("file:images/smile.png");
+        ImageView view = new ImageView(img);
+        view.setFitWidth(30);
+        view.setFitHeight(30);
+        restart.setGraphic(view);
+    }
+
+    private void setGameModel() {
+        gameModel = new GameModel(19, 15, 10, 5, 2);
         gameModel.boardUI();
-        controller.initListener(gameModel);
+    }
+
+    private void initUI() {
+        setGameModel();
+        setRestart();
 
         Button level = new Button("LEVEL");
 
@@ -45,11 +60,20 @@ public class Game extends HBox {
 
         BorderPane info = new BorderPane();
         info.setPadding(new Insets(10, 10, 10, 10));
-        info.setTop(gameModel.restart);
+        info.setTop(restart);
         info.setCenter(flagInfo);
         info.setBottom(level);
-        info.setAlignment(gameModel.restart, Pos.CENTER);
+        info.setAlignment(restart, Pos.CENTER);
 
         this.getChildren().addAll(info, gameModel);
+
+        controller.initListener(this);
+    }
+
+    public void newGame() {
+        this.getChildren().remove(gameModel);
+        setGameModel();
+        this.getChildren().add(gameModel);
+        controller.initListener(this);
     }
 }

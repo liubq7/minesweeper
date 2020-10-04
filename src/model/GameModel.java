@@ -22,7 +22,6 @@ public class GameModel extends GridPane {
     public boolean isWin;
     public boolean isDead;
 
-    public Button restart;
 
 
     public GameModel(int c, int r, int obn, int tbn, int thbn) {
@@ -189,12 +188,7 @@ public class GameModel extends GridPane {
             }
         }
 
-        restart = new Button();
-        Image img = new Image("file:images/smile.png");
-        ImageView view = new ImageView(img);
-        view.setFitWidth(30);
-        view.setFitHeight(30);
-        restart.setGraphic(view);
+
     }
 
 
