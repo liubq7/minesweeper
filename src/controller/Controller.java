@@ -35,6 +35,7 @@ public class Controller {
                     if (btn.getBombNum() == 0) {
                         model.openAround(x, y);
                     } else if (btn.getBombNum() != 0) {
+                        model.revealBomb();
                         btn.setStyle("-fx-background-color: #d41736");
                     }
                 }

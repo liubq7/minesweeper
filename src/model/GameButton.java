@@ -34,8 +34,8 @@ public class GameButton extends Button {
         this.setText("");
         Image image = new Image(path);
         ImageView view = new ImageView(image);
-        view.setFitWidth(13);
-        view.setFitHeight(13);
+        view.setFitWidth(15);
+        view.setFitHeight(15);
         this.setGraphic(view);
         img = path;
     }

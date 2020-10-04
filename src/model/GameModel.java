@@ -39,7 +39,7 @@ public class GameModel extends GridPane {
             }
         }
 
-        ArrayList<GameButton> oneBombList = new ArrayList<>();
+        oneBombList = new ArrayList<>();
         while (oneBombList.size() < oneBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
@@ -49,7 +49,7 @@ public class GameModel extends GridPane {
             }
         }
 
-        ArrayList<GameButton> twoBombList = new ArrayList<>();
+        twoBombList = new ArrayList<>();
         while (twoBombList.size() < twoBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
@@ -59,7 +59,7 @@ public class GameModel extends GridPane {
             }
         }
 
-        ArrayList<GameButton> threeBombList = new ArrayList<>();
+        threeBombList = new ArrayList<>();
         while (threeBombList.size() < threeBombNum){
             int i = (int) (Math.random() * (col));
             int j = (int) (Math.random() * (row));
@@ -92,7 +92,7 @@ public class GameModel extends GridPane {
         return neighborList;
     }
 
-    public void countBomb() {
+    private void countBomb() {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
                 ArrayList<GameButton> neighborList = getNeighbor(i, j);
@@ -106,7 +106,7 @@ public class GameModel extends GridPane {
     }
 
     public void open(int x, int y) {
-        map[x][y].setStyle("-fx-background-color: #676d6c");
+        map[x][y].setStyle("-fx-background-color: #8f9594");
         map[x][y].setText(Integer.toString(map[x][y].getAroundBombNum()));
     }
     public void openAround(int x, int y) {
@@ -116,6 +116,21 @@ public class GameModel extends GridPane {
             for (GameButton neighborButton : neighborList) {
                 openAround(neighborButton.getX(), neighborButton.getY());
             }
+        }
+    }
+
+    public void revealBomb() {
+        for (GameButton oneBomb : oneBombList) {
+            oneBomb.setImg("file:images/bomb1.png");
+            oneBomb.setStyle("-fx-background-color: #686464");
+        }
+        for (GameButton twoBomb : twoBombList) {
+            twoBomb.setImg("file:images/bomb2.png");
+            twoBomb.setStyle("-fx-background-color: #686464");
+        }
+        for (GameButton threeBomb : threeBombList) {
+            threeBomb.setImg("file:images/bomb3.png");
+            threeBomb.setStyle("-fx-background-color: #686464");
         }
     }
 
