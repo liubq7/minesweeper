@@ -1,7 +1,9 @@
 package model;
 
-import controller.Controller;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
@@ -12,10 +14,15 @@ public class GameModel extends GridPane {
     private int oneBombNum;
     private int twoBombNum;
     private int threeBombNum;
-    private GameButton[][] map;
+    public GameButton[][] map;
     private ArrayList<GameButton> oneBombList;
     private ArrayList<GameButton> twoBombList;
     private ArrayList<GameButton> threeBombList;
+
+    public boolean isWin;
+    public boolean isDead;
+
+    public Button restart;
 
 
     public GameModel(int c, int r, int obn, int tbn, int thbn) {
@@ -24,9 +31,17 @@ public class GameModel extends GridPane {
         oneBombNum = obn;
         twoBombNum = tbn;
         threeBombNum = thbn;
+        isWin = false;
+        isDead = false;
         generateMap();
         countBomb();
+    }
 
+    public int getCol() {
+        return col;
+    }
+    public int getRow() {
+        return row;
     }
 
     private void generateMap() {
@@ -134,18 +149,52 @@ public class GameModel extends GridPane {
         }
     }
 
+    private boolean checkOne() {
+        for (GameButton gameButton : oneBombList) {
+            if (!gameButton.getImg().equals("file:images/flag1.png")) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean checkTwo() {
+        for (GameButton gameButton : twoBombList) {
+            if (!gameButton.getImg().equals("file:images/flag2.png")) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean checkThree() {
+        for (GameButton gameButton : threeBombList) {
+            if (!gameButton.getImg().equals("file:images/flag3.png")) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public void checkWin() {
+        if (checkOne() && checkTwo() && checkThree()) {
+            isWin = true;
+        }
+    }
+
     public void boardUI() {
         this.setPadding(new Insets(10,10,10,10));
         this.setHgap(0);
         this.setVgap(0);
-        Controller controller = new Controller();
-        controller.initListener(this);
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
-                map[i][j].setOnMouseClicked(controller.gameButtonListener);
                 this.add(map[i][j], i, j);
             }
         }
+
+        restart = new Button();
+        Image img = new Image("file:images/smile.png");
+        ImageView view = new ImageView(img);
+        view.setFitWidth(30);
+        view.setFitHeight(30);
+        restart.setGraphic(view);
     }
 
 

@@ -1,5 +1,6 @@
 package application;
 
+import controller.Controller;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,16 +13,18 @@ import javafx.scene.layout.VBox;
 import model.GameModel;
 
 public class Game extends HBox {
+    private Controller controller;
 
     public Game() {
+        controller = new Controller();
         initUI();
     }
 
     private void initUI() {
         GameModel gameModel = new GameModel(19, 15, 10, 5, 2);
         gameModel.boardUI();
+        controller.initListener(gameModel);
 
-        Button restart = new Button("\uD83D\uDE03");
         Button level = new Button("LEVEL");
 
 
@@ -42,10 +45,10 @@ public class Game extends HBox {
 
         BorderPane info = new BorderPane();
         info.setPadding(new Insets(10, 10, 10, 10));
-        info.setTop(restart);
+        info.setTop(gameModel.restart);
         info.setCenter(flagInfo);
         info.setBottom(level);
-        info.setAlignment(restart, Pos.CENTER);
+        info.setAlignment(gameModel.restart, Pos.CENTER);
 
         this.getChildren().addAll(info, gameModel);
     }
