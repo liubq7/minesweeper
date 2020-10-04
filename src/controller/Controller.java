@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import model.GameButton;
-import model.GameModel;
 
 public class Controller {
     private EventHandler<MouseEvent> gameButtonListener;
@@ -24,15 +23,21 @@ public class Controller {
                     switch (btn.getImg()) {
                         case " " :
                             btn.setImg("file:images/flag1.png");
+                            game.flagLabelList.get(0).setText(Integer.toString(Integer.parseInt(game.flagLabelList.get(0).getText()) - 1));
                             break;
                         case "file:images/flag1.png" :
                             btn.setImg("file:images/flag2.png");
+                            game.flagLabelList.get(0).setText(Integer.toString(Integer.parseInt(game.flagLabelList.get(0).getText()) + 1));
+                            game.flagLabelList.get(1).setText(Integer.toString(Integer.parseInt(game.flagLabelList.get(1).getText()) - 1));
                             break;
                         case "file:images/flag2.png" :
                             btn.setImg("file:images/flag3.png");
+                            game.flagLabelList.get(1).setText(Integer.toString(Integer.parseInt(game.flagLabelList.get(1).getText()) + 1));
+                            game.flagLabelList.get(2).setText(Integer.toString(Integer.parseInt(game.flagLabelList.get(2).getText()) - 1));
                             break;
                         case "file:images/flag3.png" :
                             btn.removeImg();
+                            game.flagLabelList.get(2).setText(Integer.toString(Integer.parseInt(game.flagLabelList.get(2).getText()) + 1));
                             break;
                     }
                 } else if (e.getButton() == MouseButton.PRIMARY) {

@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -12,54 +13,73 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.GameModel;
 
+import java.util.ArrayList;
+
 public class Game extends HBox {
     private Controller controller;
     public GameModel gameModel;
     public Button restart;
+    public ArrayList<Label> flagLabelList;
+    private int[] bombNumList;
 
     public Game() {
         controller = new Controller();
         initUI();
     }
 
-    private void setRestart() {
+    private void initRestart() {
         restart = new Button();
         Image img = new Image("file:images/smile.png");
         ImageView view = new ImageView(img);
         view.setFitWidth(30);
         view.setFitHeight(30);
         restart.setGraphic(view);
+        restart.setTooltip(new Tooltip("New Game"));
     }
 
-    private void setGameModel() {
+    private void initGameModel() {
         gameModel = new GameModel(19, 15, 10, 5, 2);
         gameModel.boardUI();
     }
 
+    private void initFlagLabelList() {
+        bombNumList = new int[]{10, 5, 2};
+        flagLabelList = new ArrayList<>();
+    }
+
+    private void setFlagLabelList() {
+        bombNumList = new int[]{10, 5, 2};
+        for (int i = 0; i < 3; i++) {
+            flagLabelList.get(i).setText(Integer.toString(bombNumList[i]));
+        }
+    }
+
     private void initUI() {
-        setGameModel();
-        setRestart();
+        initGameModel();
+        initRestart();
 
         Button level = new Button("LEVEL");
 
 
         VBox flagInfo = new VBox();
         flagInfo.setPadding(new Insets(20, 10, 20, 10));
-        // TODO: 添加listener/image单独的view？/label值修改
+
+        initFlagLabelList();
         for (int i = 0; i < 3; i++) {
-            Label flag = new Label("5");
+            flagLabelList.add(i, new Label(Integer.toString(bombNumList[i])));
             Image img = new Image("file:images/flag" + (i+1) + ".png");
             ImageView view = new ImageView(img);
             view.setFitWidth(20);
             view.setFitHeight(20);
-            flag.setGraphic(view);
-            flagInfo.getChildren().add(flag);
+            flagLabelList.get(i).setGraphic(view);
+            flagInfo.getChildren().add(flagLabelList.get(i));
         }
         flagInfo.setAlignment(Pos.CENTER);
 
 
         BorderPane info = new BorderPane();
         info.setPadding(new Insets(10, 10, 10, 10));
+        info.setPrefWidth(80);
         info.setTop(restart);
         info.setCenter(flagInfo);
         info.setBottom(level);
@@ -72,8 +92,10 @@ public class Game extends HBox {
 
     public void newGame() {
         this.getChildren().remove(gameModel);
-        setGameModel();
+        initGameModel();
         this.getChildren().add(gameModel);
+        // TODO: 重设flag的label值
+        setFlagLabelList();
         controller.initListener(this);
     }
 }
