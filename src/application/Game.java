@@ -94,7 +94,6 @@ public class Game extends HBox {
         this.getChildren().remove(gameModel);
         initGameModel();
         this.getChildren().add(gameModel);
-        // TODO: 重设flag的label值
         setFlagLabelList();
         controller.initListener(this);
     }

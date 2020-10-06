@@ -122,13 +122,16 @@ public class GameModel extends GridPane {
     public void open(int x, int y) {
         map[x][y].setStyle("-fx-background-color: #8f9594");
         map[x][y].setText(Integer.toString(map[x][y].getAroundBombNum()));
+        map[x][y].isOpen = true;
     }
     public void openAround(int x, int y) {
         open(x, y);
         if (map[x][y].getAroundBombNum() == 0) {
             ArrayList<GameButton> neighborList = getNeighbor(x, y);
             for (GameButton neighborButton : neighborList) {
-                openAround(neighborButton.getX(), neighborButton.getY());
+                if (!neighborButton.isOpen) {
+                    openAround(neighborButton.getX(), neighborButton.getY());
+                }
             }
         }
     }

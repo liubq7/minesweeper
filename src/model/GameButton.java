@@ -12,6 +12,7 @@ public class GameButton extends Button {
     private int x;
     private int y;
     private String img;
+    boolean isOpen;
 
     public GameButton(String s, int i, int j) {
         super(s);
