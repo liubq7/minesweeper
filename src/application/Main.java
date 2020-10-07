@@ -37,6 +37,9 @@ public class Main extends Application {
         levelPane.start1.setOnMouseClicked(e->{
             stage.setScene(gameScene);
         });
+        gamePane.level.setOnMouseClicked(e->{
+            stage.setScene(levelScene);
+        });
     }
 
 }

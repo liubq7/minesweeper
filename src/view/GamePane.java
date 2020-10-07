@@ -19,6 +19,7 @@ public class GamePane extends HBox {
     private Controller controller;
     public GameModel gameModel;
     public Button restart;
+    public Button level;
     public ArrayList<Label> flagLabelList;
     private int[] bombNumList;
 
@@ -58,7 +59,7 @@ public class GamePane extends HBox {
         initGameModel();
         initRestart();
 
-        Button level = new Button("LEVEL");
+        level = new Button("LEVEL");
 
 
         VBox flagInfo = new VBox();
@@ -84,6 +85,7 @@ public class GamePane extends HBox {
         info.setCenter(flagInfo);
         info.setBottom(level);
         info.setAlignment(restart, Pos.CENTER);
+        info.setAlignment(level, Pos.CENTER);
 
         this.getChildren().addAll(info, gameModel);
 
