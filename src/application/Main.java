@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import view.GamePane;
+import view.LevelPane;
 
 public class Main extends Application {
 
@@ -13,23 +15,28 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Pane root = new Pane();
-        Game game = new Game();
-        root.getChildren().add(game);
 
-        Scene scene = new Scene(root);
+        GamePane gamePane = new GamePane();
+        LevelPane levelPane = new LevelPane();
 
-        stage.setHeight(405);
-        stage.setMaxHeight(405);
-        stage.setMinHeight(405);
+        Scene gameScene = new Scene(gamePane);
+        Scene levelScene = new Scene(levelPane);
+        stage.setScene(levelScene);
 
-        stage.setWidth(620);
-        stage.setMaxWidth(620);
-        stage.setMinWidth(620);
+//        stage.setHeight(405);
+//        stage.setMaxHeight(405);
+//        stage.setMinHeight(405);
+//
+//        stage.setWidth(620);
+//        stage.setMaxWidth(620);
+//        stage.setMinWidth(620);
 
         stage.setTitle("Minesweeper");
-        stage.setScene(scene);
         stage.show();
+
+        levelPane.start1.setOnMouseClicked(e->{
+            stage.setScene(gameScene);
+        });
     }
 
 }

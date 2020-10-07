@@ -1,4 +1,4 @@
-package application;
+package view;
 
 import controller.Controller;
 import javafx.geometry.Insets;
@@ -15,14 +15,14 @@ import model.GameModel;
 
 import java.util.ArrayList;
 
-public class Game extends HBox {
+public class GamePane extends HBox {
     private Controller controller;
     public GameModel gameModel;
     public Button restart;
     public ArrayList<Label> flagLabelList;
     private int[] bombNumList;
 
-    public Game() {
+    public GamePane() {
         controller = new Controller();
         initUI();
     }
