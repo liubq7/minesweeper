@@ -4,8 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.ArrayList;
-
 public class GameButton extends Button {
     private int bombNum;
     private int aroundBombNum;

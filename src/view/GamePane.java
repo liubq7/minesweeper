@@ -33,6 +33,7 @@ public class GamePane extends HBox {
         threeBombNum = thbn;
         controller = new Controller();
         level = new Button("LEVEL");
+        level.setTooltip(new Tooltip("Choose Level"));
         initUI();
     }
 
@@ -66,7 +67,6 @@ public class GamePane extends HBox {
     private void initUI() {
         initGameModel();
         initRestart();
-
 
 
         VBox flagInfo = new VBox();

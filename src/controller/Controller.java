@@ -23,21 +23,27 @@ public class Controller {
                     switch (btn.getImg()) {
                         case " " :
                             btn.setImg("file:images/flag1.png");
-                            gamePane.flagLabelList.get(0).setText(Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(0).getText()) - 1));
+                            gamePane.flagLabelList.get(0).setText(
+                                    Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(0).getText()) - 1));
                             break;
                         case "file:images/flag1.png" :
                             btn.setImg("file:images/flag2.png");
-                            gamePane.flagLabelList.get(0).setText(Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(0).getText()) + 1));
-                            gamePane.flagLabelList.get(1).setText(Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(1).getText()) - 1));
+                            gamePane.flagLabelList.get(0).setText(
+                                    Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(0).getText()) + 1));
+                            gamePane.flagLabelList.get(1).setText(
+                                    Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(1).getText()) - 1));
                             break;
                         case "file:images/flag2.png" :
                             btn.setImg("file:images/flag3.png");
-                            gamePane.flagLabelList.get(1).setText(Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(1).getText()) + 1));
-                            gamePane.flagLabelList.get(2).setText(Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(2).getText()) - 1));
+                            gamePane.flagLabelList.get(1).setText(
+                                    Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(1).getText()) + 1));
+                            gamePane.flagLabelList.get(2).setText(
+                                    Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(2).getText()) - 1));
                             break;
                         case "file:images/flag3.png" :
                             btn.removeImg();
-                            gamePane.flagLabelList.get(2).setText(Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(2).getText()) + 1));
+                            gamePane.flagLabelList.get(2).setText(
+                                    Integer.toString(Integer.parseInt(gamePane.flagLabelList.get(2).getText()) + 1));
                             break;
                     }
                 } else if (e.getButton() == MouseButton.PRIMARY) {
