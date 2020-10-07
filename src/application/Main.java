@@ -22,6 +22,7 @@ public class Main extends Application {
         Scene gameScene2 = new Scene(gamePane2);
         GamePane gamePane3 = new GamePane(20, 10, 5);
         Scene gameScene3 = new Scene(gamePane3);
+        GamePane[] gamePanes = new GamePane[]{gamePane1, gamePane2, gamePane3};
 
 
         LevelPane levelPane = new LevelPane();
@@ -49,15 +50,11 @@ public class Main extends Application {
             stage.setScene(gameScene3);
         });
 
-        gamePane1.level.setOnMouseClicked(e->{
-            stage.setScene(levelScene);
-        });
-        gamePane2.level.setOnMouseClicked(e->{
-            stage.setScene(levelScene);
-        });
-        gamePane3.level.setOnMouseClicked(e->{
-            stage.setScene(levelScene);
-        });
+        for (int i = 0; i < gamePanes.length; i++) {
+            gamePanes[i].level.setOnMouseClicked(e->{
+                stage.setScene(levelScene);
+            });
+        }
     }
 
 }
