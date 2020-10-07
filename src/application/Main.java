@@ -26,7 +26,7 @@ public class Main extends Application {
 
         LevelPane levelPane = new LevelPane();
         Scene levelScene = new Scene(levelPane);
-        stage.setScene(levelScene);
+        stage.setScene(gameScene1);
 
 //        stage.setHeight(405);
 //        stage.setMaxHeight(405);

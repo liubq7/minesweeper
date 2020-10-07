@@ -17,9 +17,12 @@ import java.util.ArrayList;
 
 public class GamePane extends HBox {
     private Controller controller;
+
     public GameModel gameModel;
     public Button restart;
     public Button level;
+    public ColorPane colorPane;
+
     public ArrayList<Label> flagLabelList;
     private int[] bombNumList;
 
@@ -31,9 +34,14 @@ public class GamePane extends HBox {
         oneBombNum = obn;
         twoBombNum = tbn;
         threeBombNum = thbn;
+
         controller = new Controller();
+
         level = new Button("LEVEL");
         level.setTooltip(new Tooltip("Choose Level"));
+
+        colorPane = new ColorPane();
+
         initUI();
     }
 
@@ -94,15 +102,16 @@ public class GamePane extends HBox {
         info.setAlignment(restart, Pos.CENTER);
         info.setAlignment(level, Pos.CENTER);
 
-        this.getChildren().addAll(info, gameModel);
+        this.getChildren().addAll(info, gameModel, colorPane);
 
         controller.initListener(this);
     }
 
     public void newGame() {
         this.getChildren().remove(gameModel);
+        this.getChildren().remove(colorPane);
         initGameModel();
-        this.getChildren().add(gameModel);
+        this.getChildren().addAll(gameModel, colorPane);
         setFlagLabelList();
         controller.initListener(this);
     }
