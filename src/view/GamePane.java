@@ -23,8 +23,16 @@ public class GamePane extends HBox {
     public ArrayList<Label> flagLabelList;
     private int[] bombNumList;
 
-    public GamePane() {
+    private int oneBombNum;
+    private int twoBombNum;
+    private int threeBombNum;
+
+    public GamePane(int obn, int tbn, int thbn) {
+        oneBombNum = obn;
+        twoBombNum = tbn;
+        threeBombNum = thbn;
         controller = new Controller();
+        level = new Button("LEVEL");
         initUI();
     }
 
@@ -39,17 +47,17 @@ public class GamePane extends HBox {
     }
 
     private void initGameModel() {
-        gameModel = new GameModel(19, 15, 10, 5, 2);
+        gameModel = new GameModel(19, 15, oneBombNum, twoBombNum, threeBombNum);
         gameModel.boardUI();
     }
 
     private void initFlagLabelList() {
-        bombNumList = new int[]{10, 5, 2};
+        bombNumList = new int[]{oneBombNum, twoBombNum, threeBombNum};
         flagLabelList = new ArrayList<>();
     }
 
     private void setFlagLabelList() {
-        bombNumList = new int[]{10, 5, 2};
+        bombNumList = new int[]{oneBombNum, twoBombNum, threeBombNum};
         for (int i = 0; i < 3; i++) {
             flagLabelList.get(i).setText(Integer.toString(bombNumList[i]));
         }
@@ -59,7 +67,6 @@ public class GamePane extends HBox {
         initGameModel();
         initRestart();
 
-        level = new Button("LEVEL");
 
 
         VBox flagInfo = new VBox();

@@ -16,10 +16,15 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        GamePane gamePane = new GamePane();
-        LevelPane levelPane = new LevelPane();
+        GamePane gamePane1 = new GamePane(20, 0, 0);
+        Scene gameScene1 = new Scene(gamePane1);
+        GamePane gamePane2 = new GamePane(20, 10, 0);
+        Scene gameScene2 = new Scene(gamePane2);
+        GamePane gamePane3 = new GamePane(20, 10, 5);
+        Scene gameScene3 = new Scene(gamePane3);
 
-        Scene gameScene = new Scene(gamePane);
+
+        LevelPane levelPane = new LevelPane();
         Scene levelScene = new Scene(levelPane);
         stage.setScene(levelScene);
 
@@ -34,10 +39,23 @@ public class Main extends Application {
         stage.setTitle("Minesweeper");
         stage.show();
 
-        levelPane.start1.setOnMouseClicked(e->{
-            stage.setScene(gameScene);
+        levelPane.buttons[0].setOnMouseClicked(e->{
+            stage.setScene(gameScene1);
         });
-        gamePane.level.setOnMouseClicked(e->{
+        levelPane.buttons[1].setOnMouseClicked(e->{
+            stage.setScene(gameScene2);
+        });
+        levelPane.buttons[2].setOnMouseClicked(e->{
+            stage.setScene(gameScene3);
+        });
+
+        gamePane1.level.setOnMouseClicked(e->{
+            stage.setScene(levelScene);
+        });
+        gamePane2.level.setOnMouseClicked(e->{
+            stage.setScene(levelScene);
+        });
+        gamePane3.level.setOnMouseClicked(e->{
             stage.setScene(levelScene);
         });
     }

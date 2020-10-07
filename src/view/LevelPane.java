@@ -7,9 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class LevelPane extends GridPane {
-    public Button start1;
-    public Button start2;
-    public Button start3;
+//    public Button start1;
+//    public Button start2;
+//    public Button start3;
+    public Button[] buttons;
 
     public LevelPane() {
         this.setPadding(new Insets(80, 30, 80, 30));
@@ -31,14 +32,21 @@ public class LevelPane extends GridPane {
             }
         }
 
-        start1 = new Button("start");
-        start1.setPrefWidth(45);
-        this.add(start1, 4, 1);
-        start2 = new Button("start");
-        start2.setPrefWidth(45);
-        this.add(start2, 4, 2);
-        start3 = new Button("start");
-        start3.setPrefWidth(45);
-        this.add(start3, 4, 3);
+        buttons = new Button[3];
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i] = new Button("start");
+            buttons[i].setPrefWidth(45);
+            this.add(buttons[i], 4, i+1);
+        }
+
+//        start1 = new Button("start");
+//        start1.setPrefWidth(45);
+//        this.add(start1, 4, 1);
+//        start2 = new Button("start");
+//        start2.setPrefWidth(45);
+//        this.add(start2, 4, 2);
+//        start3 = new Button("start");
+//        start3.setPrefWidth(45);
+//        this.add(start3, 4, 3);
     }
 }
