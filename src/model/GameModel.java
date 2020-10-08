@@ -148,6 +148,25 @@ public class GameModel extends GridPane {
         }
     }
 
+    public void setBorderColor(String color) {
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
+                map[i][j].setStyle("-fx-border-color: " + color);
+            }
+        }
+    }
+    public void setButtonColor(String open, String notopen) {
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
+                if (map[i][j].isOpen) {
+                    map[i][j].setStyle("-fx-background-color: " + open);
+                } else {
+                    map[i][j].setStyle("-fx-background-color: " + notopen);
+                }
+            }
+        }
+    }
+
     private boolean checkOne() {
         for (GameButton gameButton : oneBombList) {
             if (!gameButton.getImg().equals("file:images/flag1.png")) {
@@ -180,11 +199,12 @@ public class GameModel extends GridPane {
 
     public void boardUI() {
         this.setPadding(new Insets(10,10,10,10));
-        this.setHgap(0);
-        this.setVgap(0);
+        this.setHgap(1);
+        this.setVgap(1);
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
                 this.add(map[i][j], i, j);
+                map[i][j].setStyle("-fx-border-color: #eaeaef");
             }
         }
     }

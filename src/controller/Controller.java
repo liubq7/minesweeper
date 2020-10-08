@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.scene.input.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import view.GamePane;
 import javafx.event.EventHandler;
@@ -14,11 +13,11 @@ public class Controller {
     private EventHandler<MouseEvent> restartListener;
 
     private EventHandler<MouseEvent> dragDetector;
-    private EventHandler<DragEvent> dragOver;
-    private EventHandler<DragEvent> dragEnter;
-    private EventHandler<DragEvent> dragExited;
+    private EventHandler<DragEvent> dragOverListener;
+    private EventHandler<DragEvent> dragEnterListener;
+    private EventHandler<DragEvent> dragExitListener;
     private EventHandler<DragEvent> dragDropper;
-    private EventHandler<DragEvent> dragDone;
+    private EventHandler<DragEvent> dragDoneListener;
 
     GameButton target;
 
@@ -85,16 +84,6 @@ public class Controller {
             }
         };
 
-        for (int i = 0; i < gamePane.gameModel.getCol(); i++) {
-            for (int j = 0; j < gamePane.gameModel.getRow(); j++) {
-                gamePane.gameModel.map[i][j].setOnMouseClicked(gameButtonListener);
-            }
-        }
-
-//        target.setOnDragOver(dragOver);
-//        target.setOnDragEntered(dragEnter);
-//        target.setOnDragDropped(dragDropper);
-//        target.setOnDragExited(dragExited);
 
         restartListener = new EventHandler<MouseEvent>() {
             @Override
@@ -115,8 +104,8 @@ public class Controller {
 
         dragDetector = new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent e) {
-                Ellipse source = (Ellipse) e.getSource();
+            public void handle(MouseEvent event) {
+                Ellipse source = (Ellipse) event.getSource();
                 /* drag was detected, start drag-and-drop gesture*/
                 System.out.println("onDragDetected");
 
@@ -128,52 +117,58 @@ public class Controller {
                 content.putString("test");
                 db.setContent(content);
 
-                e.consume();
+                event.consume();
             }
         };
         gamePane.colorPane.pink.setOnDragDetected(dragDetector);
 
-        target.setOnDragOver(new EventHandler <DragEvent>() {
+        dragOverListener = new EventHandler<DragEvent>() {
+            @Override
             public void handle(DragEvent event) {
                 /* data is dragged over the target */
                 System.out.println("onDragOver");
 
                 /* accept it only if it is  not dragged from the same node
                  * and if it has a string data */
-                if (event.getGestureSource() != target &&
-                        event.getDragboard().hasString()) {
+//                if (event.getGestureSource() != target &&
+//                        event.getDragboard().hasString()) {
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                }
+//                }
 
                 event.consume();
             }
-        });
+        };
 
-        target.setOnDragEntered(new EventHandler <DragEvent>() {
+        dragEnterListener = new EventHandler<DragEvent>() {
+            @Override
             public void handle(DragEvent event) {
                 /* the drag-and-drop gesture entered the target */
                 System.out.println("onDragEntered");
                 /* show to the user that it is an actual gesture target */
-                if (event.getGestureSource() != target &&
-                        event.getDragboard().hasString()) {
-                    target.setStyle("-fx-border-color: #000000");
-                }
+//                if (event.getGestureSource() != target &&
+//                        event.getDragboard().hasString()) {
+//                    target.setStyle("-fx-border-color: #fcb1d0");
+//                }
+                gamePane.gameModel.setBorderColor("#fcb1d0");
 
                 event.consume();
             }
-        });
+        };
 
-        target.setOnDragExited(new EventHandler <DragEvent>() {
+        dragExitListener = new EventHandler<DragEvent>() {
+            @Override
             public void handle(DragEvent event) {
                 /* mouse moved away, remove the graphical cues */
-                target.setStyle("-fx-border-color: #ffffff");
+//                target.setStyle("-fx-border-color: #ffffff");
+//                gamePane.gameModel.setBorderColor("#eaeaef");
 
                 event.consume();
             }
-        });
+        };
 
-        target.setOnDragDropped(new EventHandler <DragEvent>() {
+        dragDropper = new EventHandler<DragEvent>() {
+            @Override
             public void handle(DragEvent event) {
                 /* data dropped */
                 System.out.println("onDragDropped");
@@ -183,7 +178,12 @@ public class Controller {
                 boolean success = false;
                 if (db.hasString()) {
                     System.out.println("1");
-                    target.setStyle("-fx-background-color: #4aff00");
+                    target.setStyle("-fx-background-color: #f6b2eb");
+
+                    //TODO: drag之后再点的是灰色
+                    gamePane.gameModel.setButtonColor("#EC46AA", "#F6B2EB");
+
+
                     System.out.println("2");
                     success = true;
                 }
@@ -193,9 +193,9 @@ public class Controller {
 
                 event.consume();
             }
-        });
+        };
 
-        dragDone = new EventHandler<DragEvent>() {
+        dragDoneListener = new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
                 /* the drag-and-drop gesture ended */
@@ -208,6 +208,18 @@ public class Controller {
                 event.consume();
             }
         };
-        gamePane.colorPane.pink.setOnDragDone(dragDone);
+        gamePane.colorPane.pink.setOnDragDone(dragDoneListener);
+
+
+        for (int i = 0; i < gamePane.gameModel.getCol(); i++) {
+            for (int j = 0; j < gamePane.gameModel.getRow(); j++) {
+                gamePane.gameModel.map[i][j].setOnMouseClicked(gameButtonListener);
+                gamePane.gameModel.map[i][j].setOnDragOver(dragOverListener);
+                gamePane.gameModel.map[i][j].setOnDragEntered(dragEnterListener);
+                gamePane.gameModel.map[i][j].setOnDragExited(dragExitListener);
+                gamePane.gameModel.map[i][j].setOnDragDropped(dragDropper);
+            }
+        }
+
     }
 }

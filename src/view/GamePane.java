@@ -78,7 +78,7 @@ public class GamePane extends HBox {
 
 
         VBox flagInfo = new VBox();
-        flagInfo.setPadding(new Insets(20, 10, 20, 10));
+        flagInfo.setPadding(new Insets(20, 5, 20, 5));
 
         initFlagLabelList();
         for (int i = 0; i < 3; i++) {

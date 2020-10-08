@@ -9,7 +9,7 @@ public class ColorPane extends VBox {
     public Ellipse pink;
 
     public ColorPane() {
-        this.setPadding(new Insets(10, 10, 10, 10));
+        this.setPadding(new Insets(10, 15, 10, 5));
         pink = new Ellipse(15,15);
         pink.setFill(Color.PINK);
         this.getChildren().add(pink);
