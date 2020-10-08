@@ -18,6 +18,7 @@ public class GameModel extends GridPane {
 
     public boolean isWin;
     public boolean isDead;
+    public int color;
 
 
 
@@ -29,6 +30,7 @@ public class GameModel extends GridPane {
         threeBombNum = thbn;
         isWin = false;
         isDead = false;
+        color = 0;
         generateMap();
         countBomb();
     }
@@ -117,7 +119,15 @@ public class GameModel extends GridPane {
     }
 
     public void open(int x, int y) {
-        map[x][y].setStyle("-fx-background-color: #8f9594");
+        switch (color) {
+            case 0 :
+                map[x][y].setStyle("-fx-background-color: #8f9594");
+                break;
+            case 1 :
+                map[x][y].setStyle("-fx-background-color: #EC46AA");
+                break;
+        }
+
         map[x][y].setText(Integer.toString(map[x][y].getAroundBombNum()));
         map[x][y].isOpen = true;
     }

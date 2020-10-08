@@ -180,7 +180,8 @@ public class Controller {
                     System.out.println("1");
                     target.setStyle("-fx-background-color: #f6b2eb");
 
-                    //TODO: drag之后再点的是灰色
+
+                    gamePane.gameModel.color = 1;
                     gamePane.gameModel.setButtonColor("#EC46AA", "#F6B2EB");
 
 
