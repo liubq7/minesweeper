@@ -157,6 +157,14 @@ public class GameModel extends GridPane {
         }
     }
 
+    public void disableAll() {
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
+                map[i][j].setDisable(true);
+            }
+        }
+    }
+
     public void playButtonSound() {
         Media bs = new Media(new File("sounds/button.mp3").toURI().toString());
         MediaPlayer bsPlayer = new MediaPlayer(bs);

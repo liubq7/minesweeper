@@ -76,6 +76,8 @@ public class Controller {
                         gamePane.restart.setGraphic(view);
 
                         gamePane.stopTime();
+
+                        gamePane.gameModel.disableAll();
                     }
                 }
                 gamePane.gameModel.checkWin();
@@ -86,6 +88,10 @@ public class Controller {
                     view.setFitWidth(30);
                     view.setFitHeight(30);
                     gamePane.restart.setGraphic(view);
+
+                    gamePane.stopTime();
+
+                    gamePane.gameModel.disableAll();
                 }
             }
         };
