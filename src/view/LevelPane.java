@@ -1,12 +1,16 @@
 package view;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-public class LevelPane extends GridPane {
+public class LevelPane extends BorderPane {
     public Button[] buttons;
     public TextField oneInput;
     public TextField twoInput;
@@ -14,9 +18,10 @@ public class LevelPane extends GridPane {
 
 
     public LevelPane() {
-        this.setPadding(new Insets(80, 30, 80, 30));
-        this.setVgap(10);
-        this.setHgap(20);
+        GridPane level = new GridPane();
+//        level.setPadding(new Insets(30, 0, 0, 0));
+        level.setVgap(10);
+        level.setHgap(20);
 
         String[][] labels = new String[][] {
                 {"", "One Bomb a grid", "Two Bomb a grid", "Three Bomb a grid"},
@@ -29,7 +34,7 @@ public class LevelPane extends GridPane {
             for (int j = 0; j < labels[0].length; j++) {
                 Label label = new Label(labels[i][j]);
                 label.setPrefWidth(120);
-                this.add(label, j, i);
+                level.add(label, j, i);
             }
         }
 
@@ -37,7 +42,7 @@ public class LevelPane extends GridPane {
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new Button("start");
             buttons[i].setPrefWidth(45);
-            this.add(buttons[i], 4, i+1);
+            level.add(buttons[i], 4, i+1);
         }
 
         oneInput = new TextField();
@@ -47,9 +52,20 @@ public class LevelPane extends GridPane {
         twoInput.setMaxWidth(105);
         threeInput.setMaxWidth(110);
 
-        this.add(new Label("Custom"), 0, 4);
-        this.add(oneInput, 1, 4);
-        this.add(twoInput, 2, 4);
-        this.add(threeInput, 3, 4);
+        level.add(new Label("Custom"), 0, 4);
+        level.add(oneInput, 1, 4);
+        level.add(twoInput, 2, 4);
+        level.add(threeInput, 3, 4);
+
+
+        Image image = new Image("file:images/minesweeper.png");
+        ImageView view = new ImageView(image);
+        view.setFitWidth(600);
+        view.setPreserveRatio(true);
+        this.setTop(view);
+        this.setCenter(level);
+        this.setPadding(new Insets(0, 30, 30, 30));
+        this.setAlignment(view, Pos.CENTER);
+        this.setAlignment(level, Pos.CENTER);
     }
 }
