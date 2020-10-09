@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.GameModel;
 
@@ -29,6 +31,9 @@ public class GamePane extends HBox {
     public Button level;
     private Label timerLabel;
     public ColorPane colorPane;
+
+    private Timeline timeline = new Timeline();
+    private IntegerProperty timeSeconds = new SimpleIntegerProperty(0);
 
     public ArrayList<Label> flagLabelList;
     private int[] bombNumList;
@@ -63,9 +68,8 @@ public class GamePane extends HBox {
     }
 
     private void initTime() {
-        Timeline timeline = new Timeline();
-        IntegerProperty timeSeconds = new SimpleIntegerProperty(0);
-
+        timerLabel.setFont(new Font("Constantia", 20));
+        timerLabel.setTextFill(Color.RED);
         timerLabel.setPadding(new Insets(10, 0, 10, 0));
         timerLabel.textProperty().bind(timeSeconds.asString());
         if (timeline != null) {
@@ -76,6 +80,9 @@ public class GamePane extends HBox {
                 new KeyFrame(Duration.seconds(1000),
                         new KeyValue(timeSeconds, 999)));
         timeline.playFromStart();
+    }
+    public void stopTime() {
+        timeline.stop();
     }
 
     private void initGameModel() {
@@ -98,6 +105,7 @@ public class GamePane extends HBox {
     private void initUI() {
         initGameModel();
         initRestart();
+
         timerLabel = new Label();
         initTime();
 
