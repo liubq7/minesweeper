@@ -61,11 +61,11 @@ public class Main extends Application {
             String oneValue = levelPane.oneInput.getText();
             String twoValue = levelPane.twoInput.getText();
             String threeValue = levelPane.threeInput.getText();
-            GamePane gamePane4 = new GamePane(Integer.parseInt(oneValue), Integer.parseInt(twoValue), Integer.parseInt(threeValue));
-            Scene gameScene4 = new Scene(gamePane4);
-            stage.setScene(gameScene4);
+            GamePane gamePane = new GamePane(Integer.parseInt(oneValue), Integer.parseInt(twoValue), Integer.parseInt(threeValue));
+            Scene gameScene = new Scene(gamePane);
+            stage.setScene(gameScene);
 
-            gamePane4.level.setOnMouseClicked(event->{
+            gamePane.level.setOnMouseClicked(event->{
                 stage.setScene(levelScene);
             });
         });

@@ -2,7 +2,9 @@ package model;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 import java.util.ArrayList;
 
 public class GameModel extends GridPane {
@@ -153,6 +155,22 @@ public class GameModel extends GridPane {
                 }
             }
         }
+    }
+
+    public void playButtonSound() {
+        Media bs = new Media(new File("sounds/button.mp3").toURI().toString());
+        MediaPlayer bsPlayer = new MediaPlayer(bs);
+        bsPlayer.play();
+    }
+    public void playWinSound() {
+        Media ws = new Media(new File("sounds/win.mp3").toURI().toString());
+        MediaPlayer wsPlayer = new MediaPlayer(ws);
+        wsPlayer.play();
+    }
+    public void playBombSound() {
+        Media bs = new Media(new File("sounds/bomb.mp3").toURI().toString());
+        MediaPlayer bsPlayer = new MediaPlayer(bs);
+        bsPlayer.play();
     }
 
     public void revealBomb() {

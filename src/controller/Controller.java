@@ -60,9 +60,12 @@ public class Controller {
                     }
                 } else if (e.getButton() == MouseButton.PRIMARY) {
                     if (btn.getBombNum() == 0) {
+                        btn.removeImg();
                         gamePane.gameModel.openAround(x, y);
+                        gamePane.gameModel.playButtonSound();
                     } else if (btn.getBombNum() != 0) {
                         gamePane.gameModel.isDead = true;
+                        gamePane.gameModel.playBombSound();
                         gamePane.gameModel.revealBomb();
                         btn.setStyle("-fx-background-color: #d41736");
 
@@ -77,6 +80,7 @@ public class Controller {
                 }
                 gamePane.gameModel.checkWin();
                 if (gamePane.gameModel.isWin) {
+                    gamePane.gameModel.playWinSound();
                     Image img = new Image("file:images/win.png");
                     ImageView view = new ImageView(img);
                     view.setFitWidth(30);
