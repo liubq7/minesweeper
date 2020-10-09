@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.scene.input.*;
-import javafx.scene.shape.Ellipse;
 import view.ColorPane;
 import view.GamePane;
 import javafx.event.EventHandler;

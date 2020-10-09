@@ -26,7 +26,7 @@ public class Main extends Application {
 
         LevelPane levelPane = new LevelPane();
         Scene levelScene = new Scene(levelPane);
-        stage.setScene(gameScene1);
+        stage.setScene(levelScene);
 
 //        stage.setHeight(405);
 //        stage.setMaxHeight(405);
@@ -47,6 +47,18 @@ public class Main extends Application {
         });
         levelPane.buttons[2].setOnMouseClicked(e->{
             stage.setScene(gameScene3);
+        });
+        levelPane.buttons[3].setOnMouseClicked(e->{
+            String oneValue = levelPane.oneInput.getText();
+            String twoValue = levelPane.twoInput.getText();
+            String threeValue = levelPane.threeInput.getText();
+            GamePane gamePane4 = new GamePane(Integer.parseInt(oneValue), Integer.parseInt(twoValue), Integer.parseInt(threeValue));
+            Scene gameScene4 = new Scene(gamePane4);
+            stage.setScene(gameScene4);
+
+            gamePane4.level.setOnMouseClicked(event->{
+                stage.setScene(levelScene);
+            });
         });
 
         for (int i = 0; i < gamePanes.length; i++) {

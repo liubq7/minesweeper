@@ -3,18 +3,20 @@ package view;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class LevelPane extends GridPane {
-//    public Button start1;
-//    public Button start2;
-//    public Button start3;
     public Button[] buttons;
+    public TextField oneInput;
+    public TextField twoInput;
+    public TextField threeInput;
+
 
     public LevelPane() {
         this.setPadding(new Insets(80, 30, 80, 30));
         this.setVgap(10);
-        this.setHgap(10);
+        this.setHgap(20);
 
         String[][] labels = new String[][] {
                 {"", "One Bomb a grid", "Two Bomb a grid", "Three Bomb a grid"},
@@ -31,21 +33,23 @@ public class LevelPane extends GridPane {
             }
         }
 
-        buttons = new Button[3];
+        buttons = new Button[4];
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new Button("start");
             buttons[i].setPrefWidth(45);
             this.add(buttons[i], 4, i+1);
         }
 
-//        start1 = new Button("start");
-//        start1.setPrefWidth(45);
-//        this.add(start1, 4, 1);
-//        start2 = new Button("start");
-//        start2.setPrefWidth(45);
-//        this.add(start2, 4, 2);
-//        start3 = new Button("start");
-//        start3.setPrefWidth(45);
-//        this.add(start3, 4, 3);
+        oneInput = new TextField();
+        twoInput = new TextField();
+        threeInput = new TextField();
+        oneInput.setMaxWidth(105);
+        twoInput.setMaxWidth(105);
+        threeInput.setMaxWidth(110);
+
+        this.add(new Label("Custom"), 0, 4);
+        this.add(oneInput, 1, 4);
+        this.add(twoInput, 2, 4);
+        this.add(threeInput, 3, 4);
     }
 }
