@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.input.*;
 import javafx.scene.shape.Ellipse;
+import view.ColorPane;
 import view.GamePane;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -105,7 +106,7 @@ public class Controller {
         dragDetector = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Ellipse source = (Ellipse) event.getSource();
+                ColorPane.ColorCir source = (ColorPane.ColorCir) event.getSource();
                 /* drag was detected, start drag-and-drop gesture*/
                 System.out.println("onDragDetected");
 
@@ -114,13 +115,12 @@ public class Controller {
 
                 /* put a string on dragboard */
                 ClipboardContent content = new ClipboardContent();
-                content.putString("test");
+                content.putString(source.getColorStr());
                 db.setContent(content);
 
                 event.consume();
             }
         };
-        gamePane.colorPane.pink.setOnDragDetected(dragDetector);
 
         dragOverListener = new EventHandler<DragEvent>() {
             @Override
@@ -150,7 +150,23 @@ public class Controller {
 //                        event.getDragboard().hasString()) {
 //                    target.setStyle("-fx-border-color: #fcb1d0");
 //                }
-                gamePane.gameModel.setBorderColor("#fcb1d0");
+                switch (event.getDragboard().getString()) {
+                    case "0" :
+                        gamePane.gameModel.setBorderColor("#fcb1d0");
+                        break;
+                    case "1" :
+                        gamePane.gameModel.setBorderColor("#2CACFC");
+                        break;
+                    case "2" :
+                        gamePane.gameModel.setBorderColor("#00FF5D");
+                        break;
+                    case "3" :
+                        gamePane.gameModel.setBorderColor("#F7FF00");
+                        break;
+                    case "4" :
+                        gamePane.gameModel.setBorderColor("#F84BF8");
+                        break;
+                }
 
                 event.consume();
             }
@@ -174,18 +190,34 @@ public class Controller {
                 System.out.println("onDragDropped");
                 /* if there is a string data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
-                System.out.println(db.getString());
                 boolean success = false;
                 if (db.hasString()) {
-                    System.out.println("1");
-                    target.setStyle("-fx-background-color: #f6b2eb");
 
+                    target.setStyle("-fx-background-color: #ec27ec");
 
-                    gamePane.gameModel.color = 1;
-                    gamePane.gameModel.setButtonColor("#EC46AA", "#F6B2EB");
+                    switch (db.getString()) {
+                        case "0" :
+                            gamePane.gameModel.color = 1;
+                            gamePane.gameModel.setButtonColor("#FFC0CB", "#FC8398");
+                            break;
+                        case "1" :
+                            gamePane.gameModel.color = 2;
+                            gamePane.gameModel.setButtonColor("#87CEFA", "#32ACF8");
+                            break;
+                        case "2" :
+                            gamePane.gameModel.color = 3;
+                            gamePane.gameModel.setButtonColor("#00FF7F", "#03974C");
+                            break;
+                        case "3" :
+                            gamePane.gameModel.color = 4;
+                            gamePane.gameModel.setButtonColor("#FFFF00", "#939303");
+                            break;
+                        case "4" :
+                            gamePane.gameModel.color = 5;
+                            gamePane.gameModel.setButtonColor("#EE82EE", "#EC27EC");
+                            break;
+                    }
 
-
-                    System.out.println("2");
                     success = true;
                 }
                 /* let the source know whether the string was successfully
@@ -209,7 +241,7 @@ public class Controller {
                 event.consume();
             }
         };
-        gamePane.colorPane.pink.setOnDragDone(dragDoneListener);
+
 
 
         for (int i = 0; i < gamePane.gameModel.getCol(); i++) {
@@ -220,6 +252,11 @@ public class Controller {
                 gamePane.gameModel.map[i][j].setOnDragExited(dragExitListener);
                 gamePane.gameModel.map[i][j].setOnDragDropped(dragDropper);
             }
+        }
+
+        for (int i = 0; i < gamePane.colorPane.colorCirs.length; i++) {
+            gamePane.colorPane.colorCirs[i].setOnDragDetected(dragDetector);
+            gamePane.colorPane.colorCirs[i].setOnDragDone(dragDoneListener);
         }
 
     }

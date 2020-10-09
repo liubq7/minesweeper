@@ -124,7 +124,19 @@ public class GameModel extends GridPane {
                 map[x][y].setStyle("-fx-background-color: #8f9594");
                 break;
             case 1 :
-                map[x][y].setStyle("-fx-background-color: #EC46AA");
+                map[x][y].setStyle("-fx-background-color: #FC8398");
+                break;
+            case 2 :
+                map[x][y].setStyle("-fx-background-color: #32ACF8");
+                break;
+            case 3 :
+                map[x][y].setStyle("-fx-background-color: #03974C");
+                break;
+            case 4 :
+                map[x][y].setStyle("-fx-background-color: #939303");
+                break;
+            case 5 :
+                map[x][y].setStyle("-fx-background-color: #EC27EC");
                 break;
         }
 
@@ -165,7 +177,7 @@ public class GameModel extends GridPane {
             }
         }
     }
-    public void setButtonColor(String open, String notopen) {
+    public void setButtonColor(String notopen, String open) {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
                 if (map[i][j].isOpen) {
@@ -214,7 +226,7 @@ public class GameModel extends GridPane {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
                 this.add(map[i][j], i, j);
-                map[i][j].setStyle("-fx-border-color: #eaeaef");
+//                map[i][j].setStyle("-fx-border-color: #eaeaef");
             }
         }
     }
