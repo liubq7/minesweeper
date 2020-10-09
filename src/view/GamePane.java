@@ -1,6 +1,11 @@
 package view;
 
 import controller.Controller;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.GameModel;
 
 import java.util.ArrayList;
@@ -21,6 +27,7 @@ public class GamePane extends HBox {
     public GameModel gameModel;
     public Button restart;
     public Button level;
+    private Label timerLabel;
     public ColorPane colorPane;
 
     public ArrayList<Label> flagLabelList;
@@ -55,6 +62,22 @@ public class GamePane extends HBox {
         restart.setTooltip(new Tooltip("New Game"));
     }
 
+    private void initTime() {
+        Timeline timeline = new Timeline();
+        IntegerProperty timeSeconds = new SimpleIntegerProperty(0);
+
+        timerLabel.setPadding(new Insets(10, 0, 10, 0));
+        timerLabel.textProperty().bind(timeSeconds.asString());
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeSeconds.set(0);
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(1000),
+                        new KeyValue(timeSeconds, 999)));
+        timeline.playFromStart();
+    }
+
     private void initGameModel() {
         gameModel = new GameModel(19, 15, oneBombNum, twoBombNum, threeBombNum);
         gameModel.boardUI();
@@ -75,6 +98,14 @@ public class GamePane extends HBox {
     private void initUI() {
         initGameModel();
         initRestart();
+        timerLabel = new Label();
+        initTime();
+
+        BorderPane top = new BorderPane();
+        top.setTop(restart);
+        top.setCenter(timerLabel);
+        top.setAlignment(restart, Pos.CENTER);
+        top.setAlignment(timerLabel, Pos.CENTER);
 
 
         VBox flagInfo = new VBox();
@@ -96,10 +127,9 @@ public class GamePane extends HBox {
         BorderPane info = new BorderPane();
         info.setPadding(new Insets(10, 10, 10, 10));
         info.setPrefWidth(80);
-        info.setTop(restart);
+        info.setTop(top);
         info.setCenter(flagInfo);
         info.setBottom(level);
-        info.setAlignment(restart, Pos.CENTER);
         info.setAlignment(level, Pos.CENTER);
 
         this.getChildren().addAll(info, gameModel, colorPane);
@@ -113,6 +143,7 @@ public class GamePane extends HBox {
         initGameModel();
         this.getChildren().addAll(gameModel, colorPane);
         setFlagLabelList();
+        initTime();
         controller.initListener(this);
     }
 }
