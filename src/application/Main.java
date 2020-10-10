@@ -63,8 +63,6 @@ public class Main extends Application {
             String threeValue = levelPane.threeInput.getText();
             GamePane gamePane = new GamePane(Integer.parseInt(oneValue), Integer.parseInt(twoValue), Integer.parseInt(threeValue));
             Scene gameScene = new Scene(gamePane);
-            gameScene.getStylesheets().add
-                    (Main.class.getResource("mycss.css").toExternalForm());
             stage.setScene(gameScene);
 
             gamePane.level.setOnMouseClicked(event->{
