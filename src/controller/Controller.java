@@ -10,6 +10,9 @@ import model.GameButton;
 
 public class Controller {
     private EventHandler<MouseEvent> gameButtonListener;
+    private EventHandler<MouseEvent> gameButtonEnterListener;
+    private EventHandler<MouseEvent> gameButtonExitListener;
+
     private EventHandler<MouseEvent> restartListener;
 
     private EventHandler<MouseEvent> dragDetector;
@@ -95,6 +98,46 @@ public class Controller {
                     gamePane.stopTime();
 
                     gamePane.gameModel.disableAll();
+                }
+            }
+        };
+
+        /* When the mouse hovers over an unopened grid, this grid would turn blue to emphasize. */
+        gameButtonEnterListener = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                GameButton btn = (GameButton)e.getSource();
+                if (!btn.isOpen) {
+                    btn.setStyle("-fx-background-color: #455bee");
+                }
+
+            }
+        };
+        gameButtonExitListener = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                GameButton btn = (GameButton)e.getSource();
+                if (!btn.isOpen) {
+                    switch (gamePane.gameModel.color) {
+                        case 0:
+                            btn.setStyle(null);
+                            break;
+                        case 1:
+                            btn.setStyle("-fx-background-color: #FFC0CB");
+                            break;
+                        case 2:
+                            btn.setStyle("-fx-background-color: #87CEFA");
+                            break;
+                        case 3:
+                            btn.setStyle("-fx-background-color: #00FF7F");
+                            break;
+                        case 4:
+                            btn.setStyle("-fx-background-color: #FFFF00");
+                            break;
+                        case 5:
+                            btn.setStyle("-fx-background-color: #EE82EE");
+                            break;
+                    }
                 }
             }
         };
@@ -259,6 +302,10 @@ public class Controller {
         for (int i = 0; i < gamePane.gameModel.getCol(); i++) {
             for (int j = 0; j < gamePane.gameModel.getRow(); j++) {
                 gamePane.gameModel.map[i][j].setOnMouseClicked(gameButtonListener);
+
+                gamePane.gameModel.map[i][j].setOnMouseEntered(gameButtonEnterListener);
+                gamePane.gameModel.map[i][j].setOnMouseExited(gameButtonExitListener);
+
                 gamePane.gameModel.map[i][j].setOnDragOver(dragOverListener);
                 gamePane.gameModel.map[i][j].setOnDragEntered(dragEnterListener);
                 gamePane.gameModel.map[i][j].setOnDragExited(dragExitListener);

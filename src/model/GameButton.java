@@ -11,7 +11,7 @@ public class GameButton extends Button {
     private int x;  // position x
     private int y;  // position y
     private String img;  // the image of the button
-    boolean isOpen;  // if the cell is opened
+    public boolean isOpen;  // if the cell is opened
 
     public GameButton(String s, int i, int j) {
         super(s);
