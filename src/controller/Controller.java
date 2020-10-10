@@ -19,11 +19,8 @@ public class Controller {
     private EventHandler<DragEvent> dragDropper;
     private EventHandler<DragEvent> dragDoneListener;
 
-    GameButton target;
-
 
     public void initListener(GamePane gamePane) {
-        target = gamePane.gameModel.map[0][0];
 
         gameButtonListener = new EventHandler<MouseEvent>() {
             @Override
@@ -31,6 +28,12 @@ public class Controller {
                 GameButton btn = (GameButton)e.getSource();
                 int x = btn.getX();
                 int y = btn.getY();
+                /**
+                 *  The player could right click once to mark one flag in a cell,
+                 *  right click twice to mark two flags,
+                 *  right click three times to mark three flags,
+                 *  right click again to undo.
+                 */
                 if (e.getButton() == MouseButton.SECONDARY) {
                     switch (btn.getImg()) {
                         case " " :
@@ -59,11 +62,11 @@ public class Controller {
                             break;
                     }
                 } else if (e.getButton() == MouseButton.PRIMARY) {
-                    if (btn.getBombNum() == 0) {
+                    if (btn.getBombNum() == 0) {  // open an empty cell
                         btn.removeImg();
                         gamePane.gameModel.openAround(x, y);
                         gamePane.gameModel.playButtonSound();
-                    } else if (btn.getBombNum() != 0) {
+                    } else if (btn.getBombNum() != 0) {  // game over
                         gamePane.gameModel.isDead = true;
                         gamePane.gameModel.playBombSound();
                         gamePane.gameModel.revealBomb();
@@ -203,8 +206,6 @@ public class Controller {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-
-                    target.setStyle("-fx-background-color: #ec27ec");
 
                     switch (db.getString()) {
                         case "0" :

@@ -10,16 +10,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
+/* The welcome and level choose page. */
 public class LevelPane extends BorderPane {
     public Button[] buttons;
-    public TextField oneInput;
-    public TextField twoInput;
-    public TextField threeInput;
+    public TextField oneInput;  // customize how many grid have one bomb.
+    public TextField twoInput;  // customize how many grid have two bomb.
+    public TextField threeInput;  // customize how many grid have three bomb.
 
 
     public LevelPane() {
         GridPane level = new GridPane();
-//        level.setPadding(new Insets(30, 0, 0, 0));
         level.setVgap(10);
         level.setHgap(20);
 

@@ -23,10 +23,11 @@ import model.GameModel;
 
 import java.util.ArrayList;
 
+/* The game page. */
 public class GamePane extends HBox {
     private Controller controller;
 
-    public GameModel gameModel;
+    public GameModel gameModel;  // the game grids
     public Button restart;
     public Button level;
     private Label timerLabel;
@@ -35,12 +36,12 @@ public class GamePane extends HBox {
     private Timeline timeline = new Timeline();
     private IntegerProperty timeSeconds = new SimpleIntegerProperty(0);
 
-    public ArrayList<Label> flagLabelList;
-    private int[] bombNumList;
+    public ArrayList<Label> flagLabelList;  // restore the number of left flags of each type
+    private int[] bombNumList;  // restore the number of each type bomb
 
-    private int oneBombNum;
-    private int twoBombNum;
-    private int threeBombNum;
+    private int oneBombNum;  // the number of grid that has one bomb
+    private int twoBombNum;  // the number of grid that has two bomb
+    private int threeBombNum;  // the number of grid that has three bomb
 
     public GamePane(int obn, int tbn, int thbn) {
         oneBombNum = obn;
@@ -57,6 +58,7 @@ public class GamePane extends HBox {
         initUI();
     }
 
+    /* Initiate the UI of restart button. */
     private void initRestart() {
         restart = new Button();
         Image img = new Image("file:images/smile.png");
@@ -67,6 +69,7 @@ public class GamePane extends HBox {
         restart.setTooltip(new Tooltip("New Game"));
     }
 
+    /* Initiate the UI of timer and start count. */
     private void initTime() {
         timerLabel.setFont(new Font("Constantia", 20));
         timerLabel.setTextFill(Color.RED);
@@ -81,10 +84,12 @@ public class GamePane extends HBox {
                         new KeyValue(timeSeconds, 999)));
         timeline.playFromStart();
     }
+    /* Stop timer count. */
     public void stopTime() {
         timeline.stop();
     }
 
+    /* Generate the game grids for playing. */
     private void initGameModel() {
         gameModel = new GameModel(19, 15, oneBombNum, twoBombNum, threeBombNum);
         gameModel.boardUI();
@@ -95,6 +100,7 @@ public class GamePane extends HBox {
         flagLabelList = new ArrayList<>();
     }
 
+    /* Set the number of flags the same as the number of the corresponding type bombs. */
     private void setFlagLabelList() {
         bombNumList = new int[]{oneBombNum, twoBombNum, threeBombNum};
         for (int i = 0; i < 3; i++) {
@@ -102,6 +108,7 @@ public class GamePane extends HBox {
         }
     }
 
+    /* Initiate the UI of game pane. */
     private void initUI() {
         initGameModel();
         initRestart();
@@ -145,6 +152,7 @@ public class GamePane extends HBox {
         controller.initListener(this);
     }
 
+    /* Restart a new game. */
     public void newGame() {
         this.getChildren().remove(gameModel);
         this.getChildren().remove(colorPane);

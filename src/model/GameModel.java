@@ -7,20 +7,21 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.util.ArrayList;
 
+/* The model of game grids. */
 public class GameModel extends GridPane {
-    private int col;  // 列x(i)
-    private int row;  // 行y(j)
-    private int oneBombNum;
-    private int twoBombNum;
-    private int threeBombNum;
+    private int col;  // grids' column number
+    private int row;  // grids' row number
+    private int oneBombNum;  // the number of grids that has one bomb
+    private int twoBombNum;  // the number of grids that has two bomb
+    private int threeBombNum;  // the number of grids that has three bomb
     public GameButton[][] map;
-    private ArrayList<GameButton> oneBombList;
-    private ArrayList<GameButton> twoBombList;
-    private ArrayList<GameButton> threeBombList;
+    private ArrayList<GameButton> oneBombList;  // the list of grids that has one bomb
+    private ArrayList<GameButton> twoBombList;  // the list of grids that has two bomb
+    private ArrayList<GameButton> threeBombList;  // the list of grids that has three bomb
 
     public boolean isWin;
     public boolean isDead;
-    public int color;
+    public int color;  // the UI color state
 
 
 
@@ -44,6 +45,7 @@ public class GameModel extends GridPane {
         return row;
     }
 
+    /* Generate a certain number of each type of bombs randomly. */
     private void generateMap() {
         map = new GameButton[col][row];
         for (int i = 0; i < col; i++) {
@@ -85,6 +87,7 @@ public class GameModel extends GridPane {
         }
     }
 
+    /* Determines whether a coordinate is in the map. */
     private boolean isContain(int x, int y) {
         if (x >= 0 && x < col && y >= 0 && y < row) {
             return true;
@@ -93,6 +96,7 @@ public class GameModel extends GridPane {
         }
     }
 
+    /* Get the adjacent cells of cell(x, y). */
     private ArrayList<GameButton> getNeighbor(int x, int y) {
         int[] neighborX = {-1, 0, 1};
         int[] neighborY = {-1, 0, 1};
@@ -107,6 +111,7 @@ public class GameModel extends GridPane {
         return neighborList;
     }
 
+    /* Count the number of bombs in adjacent cells. */
     private void countBomb() {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
@@ -120,6 +125,7 @@ public class GameModel extends GridPane {
         }
     }
 
+    /* Open cell(x, y), setting a darker color and showing the number of adjacent cell's bomb. */
     public void open(int x, int y) {
         switch (color) {
             case 0 :
@@ -145,6 +151,7 @@ public class GameModel extends GridPane {
         map[x][y].setText(Integer.toString(map[x][y].getAroundBombNum()));
         map[x][y].isOpen = true;
     }
+    /* If the cell's aroundBombNum is 0, open it's adjacent cells until the aroundBombNum isn't 0. */
     public void openAround(int x, int y) {
         open(x, y);
         if (map[x][y].getAroundBombNum() == 0) {
@@ -157,6 +164,7 @@ public class GameModel extends GridPane {
         }
     }
 
+    /* Disable all the grid buttons. */
     public void disableAll() {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
@@ -181,6 +189,7 @@ public class GameModel extends GridPane {
         bsPlayer.play();
     }
 
+    /* Show all bombs' position. */
     public void revealBomb() {
         for (GameButton oneBomb : oneBombList) {
             oneBomb.setImg("file:images/bomb1.png");
@@ -196,6 +205,10 @@ public class GameModel extends GridPane {
         }
     }
 
+    /**
+     *  Set the color of grid button border.
+     *  @param color the color hex
+     */
     public void setBorderColor(String color) {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
@@ -203,6 +216,11 @@ public class GameModel extends GridPane {
             }
         }
     }
+    /**
+     *  Set the color of grid button background.
+     *  @param notopen the color hex of not open cell
+     *  @param open the color hex of opened cell
+     */
     public void setButtonColor(String notopen, String open) {
         for (int i = 0; i < col; i++) {
             for (int j = 0; j < row; j++) {
@@ -215,6 +233,7 @@ public class GameModel extends GridPane {
         }
     }
 
+    /* Check if mark all grids with one bomb correctly. */
     private boolean checkOne() {
         for (GameButton gameButton : oneBombList) {
             if (!gameButton.getImg().equals("file:images/flag1.png")) {
@@ -245,6 +264,7 @@ public class GameModel extends GridPane {
         }
     }
 
+    /* Initiate the grids board's UI. */
     public void boardUI() {
         this.setPadding(new Insets(10,10,10,10));
         this.setHgap(1);

@@ -5,8 +5,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
-import java.awt.*;
-
+/* Different color of circle for user to drag and drop to customize the grids color. */
 public class ColorPane extends VBox {
     public ColorCir[] colorCirs;
 
