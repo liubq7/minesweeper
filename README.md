@@ -2,7 +2,7 @@
 
 ---
 
-A Minesweeper game with multiple mines in one grid and user - defined UI.  
+A Minesweeper game with multiple mines in one grid and user-defined UI.  
 
 ## Run Configurations  
 ```
