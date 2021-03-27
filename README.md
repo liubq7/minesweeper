@@ -1,6 +1,7 @@
-<p align="center"><img src ="images/minesweeper.png" width = "600px"></p>
+# Minesweeper
+<!-- <p align="center"><img src ="images/minesweeper.png" width = "600px"></p>
 
----
+--- -->
 
 A Minesweeper game with multiple mines in one grid and user-defined UI.  
 
